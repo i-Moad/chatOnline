@@ -1,0 +1,27 @@
+@keyframes moveLeft {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-\[moveLeft_500ms_ease-in-out_forwards\] {
+  animation: moveLeft 300ms ease forwards;
+}
+
+@keyframes moveRight {
+    0% {
+      transform: translateX(-100%);
+    }
+  
+    100% {
+      transform: translateX(0);
+    }
+  }
+  
+  .animate-\[moveRight_500ms_ease-in-out_forwards\] {
+    animation: moveRight 300ms ease forwards;
+  }
