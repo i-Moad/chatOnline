@@ -12,7 +12,7 @@
     <div class=" w-[84%] mx-auto h-[700px] bg-white shadow-md rounded-lg shadow-slate-200 p-6 grid grid-cols-12 relative">
         <div class="col-start-1 col-end-7 rounded-lg flex flex-col justify-center items-center gap-12">
             <h2 class=" font-semibold text-4xl">Sign up</h2>
-            <form action="" method="post" class=" flex flex-col gap-2 w-[75%]">
+            <form action="../includes/signup.inc.php" method="post" class=" flex flex-col gap-2 w-[75%]">
                 <div class=" relative">
                     <input type="text" name="Fname" placeholder="First Name" class=" w-[95%] mx-auto h-[40px] p-3 border-b border-slate-300 outline-none mb-3">
                     <i class="fa-solid fa-user absolute bottom-[20px] right-[23px]"></i>
@@ -22,7 +22,7 @@
                     <i class="fa-solid fa-user absolute bottom-[20px] right-[23px]"></i>
                 </div>
                 <div class=" relative">
-                    <input type="text" name="Uname" placeholder="Username" class=" w-[95%] mx-auto h-[40px] p-3 border-b border-slate-300 outline-none mb-3">
+                    <input type="text" name="uid" placeholder="Username" class=" w-[95%] mx-auto h-[40px] p-3 border-b border-slate-300 outline-none mb-3">
                     <i class="fa-solid fa-user absolute bottom-[20px] right-[23px]"></i>
                 </div>
                 <div class=" relative">
@@ -63,7 +63,7 @@
         </div>
         <div class=" col-start-7 col-end-13 rounded-lg flex flex-col justify-center items-center gap-12">
             <h2 class=" font-semibold text-4xl">Login</h2>
-            <form action="" method="post" class=" flex flex-col gap-2 w-[75%]">
+            <form action="../includes/login.inc.php" method="post" class=" flex flex-col gap-2 w-[75%]">
                 <div class=" relative">
                     <input type="email" name="email" placeholder="Email" class=" w-[95%] mx-auto h-[40px] p-3 border-b border-slate-300 outline-none mb-3">
                     <i class="fa-solid fa-envelope absolute bottom-[20px] right-[23px]"></i>

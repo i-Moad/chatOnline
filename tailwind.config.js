@@ -4,9 +4,6 @@ module.exports = {
   theme: {
     extend: {
       gridTemplateColumns: {
-        // Simple 16 column grid
-        '16': 'repeat(16, minmax(0, 1fr))',
-
         'or': '2fr 1fr 2fr',
       },
       keyframes: {
