@@ -15,7 +15,9 @@ class LoginContr extends Login
     {
         if ($this->emptyInput() === false)
         {
-            header('location: ../login?error=emptyinput');
+            session_start();
+            $_SESSION['emptyInputL'] = true;
+            header('location: ../login?empty');
             exit();
         }
 

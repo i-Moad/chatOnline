@@ -16,6 +16,10 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST')
     // Running error handlers and user signup
     $login->loginUser();
 
+    // Session
+    session_start();
+    $_SESSION["login"] = true;
+
     // Going to back to front page
-    header("location: ../home?error=none");
+    header("location: ../home");
 }

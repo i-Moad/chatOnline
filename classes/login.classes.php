@@ -18,7 +18,9 @@ class Login extends Dbh
 
         if (!$user) {
             // Handle user not found
-            header("location: ../login?error=usernotfound");
+            session_start();
+            $_SESSION['usernotFound'] = true;
+            header("location: ../login");
             exit();
         }
 
@@ -27,7 +29,9 @@ class Login extends Dbh
 
         if (!$checkPwd) {
             // Handle incorrect password
-            header("location: ../login?error=wrongpassword");
+            session_start();
+            $_SESSION['wrongPassword'] = true;
+            header("location: ../login");
             exit();
         }
 

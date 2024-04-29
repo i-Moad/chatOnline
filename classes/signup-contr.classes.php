@@ -23,27 +23,37 @@ class SignupContr extends Signup
     {
         if ($this->emptyInput() === false)
         {
-            header('location: ../login?error=emptyinput');
+            session_start();
+            $_SESSION['emptyInput'] = true;
+            header('location: ../login');
             exit();
         }
         if ($this->invalidName() === false)
         {
-            header('location: ../login?error=invalidName');
+            session_start();
+            $_SESSION['invalidName'] = true;
+            header('location: ../login');
             exit();
         }
         if ($this->invalidEmail() === false)
         {
-            header('location: ../login?error=invalidEmail');
+            session_start();
+            $_SESSION['invalidEmail'] = true;
+            header('location: ../login');
             exit();
         }
         if ($this->pwdMatch() === false)
         {
-            header('location: ../login?error=password');
+            session_start();
+            $_SESSION['pwdMatch'] = true;
+            header('location: ../login');
             exit();
         }
         if ($this->userCheck() === false)
         {
-            header('location: ../login?error=username');
+            session_start();
+            $_SESSION['userCheck'] = true;
+            header('location: ../login');
             exit();
         }
 

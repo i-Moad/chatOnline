@@ -3,7 +3,7 @@
 
     if (isset($_SESSION['id']))
     {
-        header("Location: ../home");
+        header("Location: home");
         exit();
     }
 ?>
@@ -82,7 +82,7 @@
                     <input type="password" name="password" placeholder="Password" class=" w-[95%] mx-auto h-[40px] p-3 border-b border-slate-300 outline-none mb-3">
                     <i class="fa-solid fa-lock absolute bottom-[20px] right-[23px]"></i>
                 </div>
-                <a href="#" class=" underline">Forget Your Password ?</a>
+                <a href="#" class=" underline">Forgot Your Password ?</a>
                 <input type="submit" value="Login" class=" transition ease-in-out duration-300 bg-indigo-500 hover:bg-indigo-400 w-[45%] mx-auto p-2 rounded-md text-white font-semibold mt-4 cursor-pointer">
             </form>
             <div class=" flex flex-col gap-2 -mt-4 w-[75%]">
@@ -164,10 +164,299 @@
                         document.querySelector('.changeToBlur').classList.remove('blur-md')
                     }
                 }
-            </script>;
+            </script>
     <?php
         }
         unset($_SESSION['signup']);
+    ?>
+
+    <?php
+        if (isset($_SESSION['emptyInput']))
+        {
+    ?>
+            <script>
+                document.querySelector('.changeToBlur').classList.add('blur-md');
+                document.querySelector('.body').innerHTML += `
+                    <div class="popup w-[100%] h-[100%] bg-gray-700 opacity-[0.95] absolute">
+                        <div class=" w-[100%] h-[100%] relative">
+                            <div class=" min-w-[550px] max-w-[550px] min-h-[350px] max-h-[350px] border bg-white border-gray-200 rounded-lg absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col justify-center items-center p-6 gap-7">
+                                <h1 class=" text-3xl font-semibold text-slate-900">Failed to Sign Up.</h1>
+                                <h3>Empty Inputs.</h3>
+                                <i class="fa-solid fa-rectangle-xmark text-red-500 text-[100px]"></i>
+                                <button onclick="popUp()" class=" transition ease-in-out duration-500 hover:bg-indigo-400 bg-indigo-500 text-white px-8 py-2 rounded-lg text-xl"><i class="fa-solid fa-arrow-left"></i> Go Back</button>
+                            </div>
+                        </div>
+                    </div>
+                `
+                function popUp()
+                {
+                    document.querySelector('.popup').remove()
+                    document.querySelector('.changeToBlur').classList.remove('blur-md')
+                }
+            </script>
+    <?php
+        }
+        unset($_SESSION['emptyInput']);
+    ?>
+
+    <?php
+        if (isset($_SESSION['invalidName']))
+        {
+    ?>
+            <script>
+                document.querySelector('.changeToBlur').classList.add('blur-md');
+                document.querySelector('.body').innerHTML += `
+                    <div class="popup w-[100%] h-[100%] bg-gray-700 opacity-[0.95] absolute">
+                        <div class=" w-[100%] h-[100%] relative">
+                            <div class=" min-w-[550px] max-w-[550px] min-h-[350px] max-h-[350px] border bg-white border-gray-200 rounded-lg absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col justify-center items-center p-6 gap-7">
+                                <h1 class=" text-3xl font-semibold text-slate-900">Failed to Sign Up.</h1>
+                                <h3>Invalid Name.</h3>
+                                <i class="fa-solid fa-rectangle-xmark text-red-500 text-[100px]"></i>
+                                <button onclick="popUp()" class=" transition ease-in-out duration-500 hover:bg-indigo-400 bg-indigo-500 text-white px-8 py-2 rounded-lg text-xl"><i class="fa-solid fa-arrow-left"></i> Go Back</button>
+                            </div>
+                        </div>
+                    </div>
+                `
+                function popUp()
+                {
+                    document.querySelector('.popup').remove()
+                    document.querySelector('.changeToBlur').classList.remove('blur-md')
+                }
+            </script>
+    <?php
+        }
+        unset($_SESSION['invalidName']);
+    ?>
+
+    <?php
+        if (isset($_SESSION['invalidEmail']))
+        {
+    ?>
+            <script>
+                document.querySelector('.changeToBlur').classList.add('blur-md');
+                document.querySelector('.body').innerHTML += `
+                    <div class="popup w-[100%] h-[100%] bg-gray-700 opacity-[0.95] absolute">
+                        <div class=" w-[100%] h-[100%] relative">
+                            <div class=" min-w-[550px] max-w-[550px] min-h-[350px] max-h-[350px] border bg-white border-gray-200 rounded-lg absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col justify-center items-center p-6 gap-7">
+                                <h1 class=" text-3xl font-semibold text-slate-900">Failed to Sign Up.</h1>
+                                <h3>Invalid Email.</h3>
+                                <i class="fa-solid fa-rectangle-xmark text-red-500 text-[100px]"></i>
+                                <button onclick="popUp()" class=" transition ease-in-out duration-500 hover:bg-indigo-400 bg-indigo-500 text-white px-8 py-2 rounded-lg text-xl"><i class="fa-solid fa-arrow-left"></i> Go Back</button>
+                            </div>
+                        </div>
+                    </div>
+                `
+                function popUp()
+                {
+                    document.querySelector('.popup').remove()
+                    document.querySelector('.changeToBlur').classList.remove('blur-md')
+                }
+            </script>
+    <?php
+        }
+        unset($_SESSION['invalidEmail']);
+    ?>
+
+    <?php
+        if (isset($_SESSION['pwdMatch']))
+        {
+    ?>
+            <script>
+                document.querySelector('.changeToBlur').classList.add('blur-md');
+                document.querySelector('.body').innerHTML += `
+                    <div class="popup w-[100%] h-[100%] bg-gray-700 opacity-[0.95] absolute">
+                        <div class=" w-[100%] h-[100%] relative">
+                            <div class=" min-w-[550px] max-w-[550px] min-h-[350px] max-h-[350px] border bg-white border-gray-200 rounded-lg absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col justify-center items-center p-6 gap-7">
+                                <h1 class=" text-3xl font-semibold text-slate-900">Failed to Sign Up.</h1>
+                                <h3>Password Doesn't Match With Confirm Password.</h3>
+                                <i class="fa-solid fa-rectangle-xmark text-red-500 text-[100px]"></i>
+                                <button onclick="popUp()" class=" transition ease-in-out duration-500 hover:bg-indigo-400 bg-indigo-500 text-white px-8 py-2 rounded-lg text-xl"><i class="fa-solid fa-arrow-left"></i> Go Back</button>
+                            </div>
+                        </div>
+                    </div>
+                `
+                function popUp()
+                {
+                    document.querySelector('.popup').remove()
+                    document.querySelector('.changeToBlur').classList.remove('blur-md')
+                }
+            </script>
+    <?php
+        }
+        unset($_SESSION['pwdMatch']);
+    ?>
+
+    <?php
+        if (isset($_SESSION['userCheck']))
+        {
+    ?>
+            <script>
+                document.querySelector('.changeToBlur').classList.add('blur-md');
+                document.querySelector('.body').innerHTML += `
+                    <div class="popup w-[100%] h-[100%] bg-gray-700 opacity-[0.95] absolute">
+                        <div class=" w-[100%] h-[100%] relative">
+                            <div class=" min-w-[550px] max-w-[550px] min-h-[350px] max-h-[350px] border bg-white border-gray-200 rounded-lg absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col justify-center items-center p-6 gap-7">
+                                <h1 class=" text-3xl font-semibold text-slate-900">Failed to Sign Up.</h1>
+                                <h3>Username Or Email Already Exist.</h3>
+                                <i class="fa-solid fa-rectangle-xmark text-red-500 text-[100px]"></i>
+                                <button onclick="popUp()" class=" transition ease-in-out duration-500 hover:bg-indigo-400 bg-indigo-500 text-white px-8 py-2 rounded-lg text-xl"><i class="fa-solid fa-arrow-left"></i> Go Back</button>
+                            </div>
+                        </div>
+                    </div>
+                `
+                function popUp()
+                {
+                    document.querySelector('.popup').remove()
+                    document.querySelector('.changeToBlur').classList.remove('blur-md')
+                }
+            </script>
+    <?php
+        }
+        unset($_SESSION['userCheck']);
+    ?>
+
+    <?php
+        if (isset($_SESSION['emptyInputL']))
+        {
+    ?>
+            <script>
+                document.querySelector('.changeToBlur').classList.add('blur-md');
+                document.querySelector('.body').innerHTML += `
+                    <div class="popup w-[100%] h-[100%] bg-gray-700 opacity-[0.95] absolute">
+                        <div class=" w-[100%] h-[100%] relative">
+                            <div class=" min-w-[550px] max-w-[550px] min-h-[350px] max-h-[350px] border bg-white border-gray-200 rounded-lg absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col justify-center items-center p-6 gap-7">
+                                <h1 class=" text-3xl font-semibold text-slate-900">Failed to Login.</h1>
+                                <h3>Empty Input.</h3>
+                                <i class="fa-solid fa-rectangle-xmark text-red-500 text-[100px]"></i>
+                                <button onclick="popUp()" class=" transition ease-in-out duration-500 hover:bg-indigo-400 bg-indigo-500 text-white px-8 py-2 rounded-lg text-xl"><i class="fa-solid fa-arrow-left"></i> Go Back</button>
+                            </div>
+                        </div>
+                    </div>
+                `
+                position = 'right';
+                function popUp()
+                {
+                    if(position == 'right')
+                    {
+                        position = 'left';
+                        document.querySelector('.change_pos').classList.remove('animate-[moveRight_500ms_ease-in-out_forwards]');
+                        document.querySelector('.change_pos').classList.add('animate-[moveLeft_500ms_ease-in-out_forwards]');
+                        document.querySelector('.change_pos').innerHTML = `
+                            <div class=" -mt-[50px]">
+                                <p>Welcome Back TO</p>
+                                <p>ChatOnline</p>
+                            </div>
+                            <div>
+                                <p>Login To Your Account with Email And Password.</p>
+                                <br>
+                                <p>If You Don't Have An Account Just</p>
+                                <button onclick="ChangePosition()" class=" transition ease-in-out duration-500 hover:text-black mt-[100px] bg-white text-indigo-500 px-8 py-2 rounded-lg text-xl">Create One <i class="fa-solid fa-arrow-right"></i></button>
+                            </div>
+                        `;
+                        document.querySelector('.popup').remove()
+                        document.querySelector('.changeToBlur').classList.remove('blur-md')
+                    }
+                }
+            </script>
+    <?php
+        }
+        unset($_SESSION['emptyInputL']);
+    ?>
+
+    <?php
+        if (isset($_SESSION['usernotFound']))
+        {
+    ?>
+            <script>
+                document.querySelector('.changeToBlur').classList.add('blur-md');
+                document.querySelector('.body').innerHTML += `
+                    <div class="popup w-[100%] h-[100%] bg-gray-700 opacity-[0.95] absolute">
+                        <div class=" w-[100%] h-[100%] relative">
+                            <div class=" min-w-[550px] max-w-[550px] min-h-[350px] max-h-[350px] border bg-white border-gray-200 rounded-lg absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col justify-center items-center p-6 gap-7">
+                                <h1 class=" text-3xl font-semibold text-slate-900">Failed to Login.</h1>
+                                <h3>Incorect Email.</h3>
+                                <i class="fa-solid fa-rectangle-xmark text-red-500 text-[100px]"></i>
+                                <button onclick="popUp()" class=" transition ease-in-out duration-500 hover:bg-indigo-400 bg-indigo-500 text-white px-8 py-2 rounded-lg text-xl"><i class="fa-solid fa-arrow-left"></i> Go Back</button>
+                            </div>
+                        </div>
+                    </div>
+                `
+                position = 'right';
+                function popUp()
+                {
+                    if(position == 'right')
+                    {
+                        position = 'left';
+                        document.querySelector('.change_pos').classList.remove('animate-[moveRight_500ms_ease-in-out_forwards]');
+                        document.querySelector('.change_pos').classList.add('animate-[moveLeft_500ms_ease-in-out_forwards]');
+                        document.querySelector('.change_pos').innerHTML = `
+                            <div class=" -mt-[50px]">
+                                <p>Welcome Back TO</p>
+                                <p>ChatOnline</p>
+                            </div>
+                            <div>
+                                <p>Login To Your Account with Email And Password.</p>
+                                <br>
+                                <p>If You Don't Have An Account Just</p>
+                                <button onclick="ChangePosition()" class=" transition ease-in-out duration-500 hover:text-black mt-[100px] bg-white text-indigo-500 px-8 py-2 rounded-lg text-xl">Create One <i class="fa-solid fa-arrow-right"></i></button>
+                            </div>
+                        `;
+                        document.querySelector('.popup').remove()
+                        document.querySelector('.changeToBlur').classList.remove('blur-md')
+                    }
+                }
+            </script>
+    <?php
+        }
+        unset($_SESSION['usernotFound']);
+    ?>
+
+    <?php
+        if (isset($_SESSION['wrongPassword']))
+        {
+    ?>
+            <script>
+                document.querySelector('.changeToBlur').classList.add('blur-md');
+                document.querySelector('.body').innerHTML += `
+                    <div class="popup w-[100%] h-[100%] bg-gray-700 opacity-[0.95] absolute">
+                        <div class=" w-[100%] h-[100%] relative">
+                            <div class=" min-w-[550px] max-w-[550px] min-h-[350px] max-h-[350px] border bg-white border-gray-200 rounded-lg absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col justify-center items-center p-6 gap-7">
+                                <h1 class=" text-3xl font-semibold text-slate-900">Failed to Login.</h1>
+                                <h3>Wrong Password.</h3>
+                                <i class="fa-solid fa-rectangle-xmark text-red-500 text-[100px]"></i>
+                                <button onclick="popUp()" class=" transition ease-in-out duration-500 hover:bg-indigo-400 bg-indigo-500 text-white px-8 py-2 rounded-lg text-xl"><i class="fa-solid fa-arrow-left"></i> Go Back</button>
+                            </div>
+                        </div>
+                    </div>
+                `
+                position = 'right';
+                function popUp()
+                {
+                    if(position == 'right')
+                    {
+                        position = 'left';
+                        document.querySelector('.change_pos').classList.remove('animate-[moveRight_500ms_ease-in-out_forwards]');
+                        document.querySelector('.change_pos').classList.add('animate-[moveLeft_500ms_ease-in-out_forwards]');
+                        document.querySelector('.change_pos').innerHTML = `
+                            <div class=" -mt-[50px]">
+                                <p>Welcome Back TO</p>
+                                <p>ChatOnline</p>
+                            </div>
+                            <div>
+                                <p>Login To Your Account with Email And Password.</p>
+                                <br>
+                                <p>If You Don't Have An Account Just</p>
+                                <button onclick="ChangePosition()" class=" transition ease-in-out duration-500 hover:text-black mt-[100px] bg-white text-indigo-500 px-8 py-2 rounded-lg text-xl">Create One <i class="fa-solid fa-arrow-right"></i></button>
+                            </div>
+                        `;
+                        document.querySelector('.popup').remove()
+                        document.querySelector('.changeToBlur').classList.remove('blur-md')
+                    }
+                }
+            </script>
+    <?php
+        }
+        unset($_SESSION['wrongPassword']);
     ?>
     <script src="scripts/login.js"></script>
 </body>
