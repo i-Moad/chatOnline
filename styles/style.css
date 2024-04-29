@@ -25,3 +25,8 @@
   .animate-\[moveRight_500ms_ease-in-out_forwards\] {
     animation: moveRight 300ms ease forwards;
   }
+
+  .blur-md {
+    --tw-blur: blur(12px);
+    filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+  }

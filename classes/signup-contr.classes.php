@@ -23,27 +23,27 @@ class SignupContr extends Signup
     {
         if ($this->emptyInput() === false)
         {
-            header('location: ../Pages/login.php?error=emptyinput');
+            header('location: ../login?error=emptyinput');
             exit();
         }
         if ($this->invalidName() === false)
         {
-            header('location: ../Pages/login.php?error=invalidName');
+            header('location: ../login?error=invalidName');
             exit();
         }
         if ($this->invalidEmail() === false)
         {
-            header('location: ../Pages/login.php?error=invalidEmail');
+            header('location: ../login?error=invalidEmail');
             exit();
         }
         if ($this->pwdMatch() === false)
         {
-            header('location: ../Pages/login.php?error=password');
+            header('location: ../login?error=password');
             exit();
         }
         if ($this->userCheck() === false)
         {
-            header('location: ../Pages/login.php?error=username');
+            header('location: ../login?error=username');
             exit();
         }
 

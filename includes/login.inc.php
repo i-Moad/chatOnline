@@ -17,5 +17,5 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST')
     $login->loginUser();
 
     // Going to back to front page
-    header("location: ../Pages/home.php?error=none");
+    header("location: ../home?error=none");
 }

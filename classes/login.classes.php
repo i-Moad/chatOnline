@@ -9,7 +9,7 @@ class Login extends Dbh
 
         if (!$stmt->execute([$email])) {
             // Handle SQL statement failure
-            header("location: ../Pages/login.php?error=stmtfailed");
+            header("location: ../login?error=stmtfailed");
             exit();
         }
 
@@ -18,7 +18,7 @@ class Login extends Dbh
 
         if (!$user) {
             // Handle user not found
-            header("location: ../Pages/login.php?error=usernotfound");
+            header("location: ../login?error=usernotfound");
             exit();
         }
 
@@ -27,7 +27,7 @@ class Login extends Dbh
 
         if (!$checkPwd) {
             // Handle incorrect password
-            header("location: ../Pages/login.php?error=wrongpassword");
+            header("location: ../login?error=wrongpassword");
             exit();
         }
 
