@@ -4,4 +4,5 @@ RewriteCond %{REQUEST_FILENAME}\.php -f
 
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
 RewriteRule ^login pages/login.php [NC,L]
+RewriteRule ^profile pages/profile.php [NC,L]
 RewriteRule ^home index.php [NC,L]

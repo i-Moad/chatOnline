@@ -30,3 +30,14 @@
   --tw-blur: blur(12px);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
+
+/* Hides scrollbar while still allowing scrolling */
+textarea {
+  overflow: auto;
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+textarea::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and other Webkit-based browsers */
+}

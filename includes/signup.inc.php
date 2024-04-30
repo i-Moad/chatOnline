@@ -3,13 +3,13 @@
 if ($_SERVER["REQUEST_METHOD"] == 'POST')
 {
     // Grabbing the data
-    $fname = $_POST['Fname'];    
-    $lname = $_POST['Lname'];    
-    $uid = $_POST['uid'];    
-    $email = $_POST['email'];    
-    $pwd = $_POST['password'];    
-    $cpwd = $_POST['cpassword'];  
-    
+    $fname = htmlspecialchars($_POST['Fname'], ENT_QUOTES, 'UTF-8');
+    $lname = htmlspecialchars($_POST['Lname'], ENT_QUOTES, 'UTF-8');
+    $uid = htmlspecialchars($_POST['uid'], ENT_QUOTES, 'UTF-8');
+    $email = htmlspecialchars($_POST['email'], ENT_QUOTES, 'UTF-8');
+    $pwd = htmlspecialchars($_POST['password'], ENT_QUOTES, 'UTF-8');
+    $cpwd = htmlspecialchars($_POST['cpassword'], ENT_QUOTES, 'UTF-8');
+
     // Instantiate SignupContr class
     include "../classes/dbh.classes.php";
     include "../classes/signup.classes.php";
@@ -19,6 +19,16 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST')
 
     // Running error handlers and user signup
     $signUp->signUpUser();
+
+    $userID = $signUp->fetchID($uid);
+
+    // Instantiate ProfileInfoContr class
+    include "../classes/profileinfo.classes.php";
+    include "../classes/profileinfo-contr.classes.php";
+
+    $profileInfo = new ProfileInfoContr($userID, $uid, $fname, $lname);
+
+    $profileInfo->defaultProfileInfo();
 
     // Session
     session_start();

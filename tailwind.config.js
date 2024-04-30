@@ -21,6 +21,10 @@ module.exports = {
           '100%': { transform: 'translateX(100%)' },
         },
       },
+      boxShadow: {
+        'borderL': '1px -33px 0px 0px #1f1f1f',
+        'borderR': '-0.5px -32px 0px 0px #1f1f1f',
+      }
     },
   },
   plugins: [],

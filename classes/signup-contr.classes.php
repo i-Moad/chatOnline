@@ -129,4 +129,10 @@ class SignupContr extends Signup
         }
         return $result;
     }
+
+    public function fetchID($uid)
+    {
+        $userID = $this->getID($uid);
+        return $userID['id'];
+    }
 }

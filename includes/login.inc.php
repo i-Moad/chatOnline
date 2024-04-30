@@ -3,8 +3,8 @@
 if ($_SERVER["REQUEST_METHOD"] == 'POST')
 {
     // Grabbing the data   
-    $email = $_POST['email'];    
-    $pwd = $_POST['password'];    
+    $email = htmlspecialchars($_POST['email'], ENT_QUOTES, 'UTF-8');
+    $pwd = htmlspecialchars($_POST['password'], ENT_QUOTES, 'UTF-8');    
     
     // Instantiate SignupContr class
     include "../classes/dbh.classes.php";

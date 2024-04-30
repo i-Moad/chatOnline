@@ -39,6 +39,7 @@ class Login extends Dbh
         session_start();
         $_SESSION["id"] = $user['id'];
         $_SESSION["uid"] = $user['username'];
+        $_SESSION["Djoin"] = $user['dateJoin'];
 
         // Clean up the statement
         $stmt = null;

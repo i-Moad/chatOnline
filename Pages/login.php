@@ -116,7 +116,7 @@
                 <p>Create An Account To Get Started With Us.</p>
                 <br>
                 <p>If You Already Have An Account Just</p>
-                <button onclick="ChangePosition()" class=" transition ease-in-out duration-500 hover:text-black mt-[100px] bg-white text-indigo-500 px-8 py-2 rounded-lg text-xl"><i class="fa-solid fa-arrow-left"></i> Sign IN</button>
+                <button onclick="ChangePosition()" class=" transition ease-in-out duration-500 hover:text-black mt-[100px] bg-white text-indigo-500 px-8 py-2 rounded-lg text-xl"><i class="fa-solid fa-arrow-left"></i> Sign In</button>
             </div>
         </div>
     </div>
@@ -133,9 +133,9 @@
                     <div class="popup w-[100%] h-[100%] bg-gray-700 opacity-[0.95] absolute">
                         <div class=" w-[100%] h-[100%] relative">
                             <div class=" min-w-[550px] max-w-[550px] min-h-[350px] max-h-[350px] border bg-white border-gray-200 rounded-lg absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col justify-center items-center p-6 gap-7">
-                                <h1 class=" text-3xl font-semibold text-slate-900">You signed up successfully.</h1>
+                                <h1 class=" text-3xl font-semibold text-slate-900">You've signed up successfully.</h1>
                                 <i class="fa-solid fa-check text-emerald-400 text-[100px]"></i>
-                                <button onclick="popUp()" class=" transition ease-in-out duration-500 hover:bg-indigo-400 bg-indigo-500 text-white px-8 py-2 rounded-lg text-xl"><i class="fa-solid fa-arrow-left"></i> Sign IN</button>
+                                <button onclick="popUp()" class=" transition ease-in-out duration-500 hover:bg-indigo-400 bg-indigo-500 text-white px-8 py-2 rounded-lg text-xl"><i class="fa-solid fa-arrow-left"></i> Sign In</button>
                             </div>
                         </div>
                     </div>
@@ -374,7 +374,7 @@
                         <div class=" w-[100%] h-[100%] relative">
                             <div class=" min-w-[550px] max-w-[550px] min-h-[350px] max-h-[350px] border bg-white border-gray-200 rounded-lg absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col justify-center items-center p-6 gap-7">
                                 <h1 class=" text-3xl font-semibold text-slate-900">Failed to Login.</h1>
-                                <h3>Incorect Email.</h3>
+                                <h3>Invalid Email.</h3>
                                 <i class="fa-solid fa-rectangle-xmark text-red-500 text-[100px]"></i>
                                 <button onclick="popUp()" class=" transition ease-in-out duration-500 hover:bg-indigo-400 bg-indigo-500 text-white px-8 py-2 rounded-lg text-xl"><i class="fa-solid fa-arrow-left"></i> Go Back</button>
                             </div>

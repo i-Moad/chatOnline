@@ -4,11 +4,11 @@ class Signup extends Dbh
 {
     protected function setUser($fname, $lname, $uid, $email, $pwd)
     {
-        $stmt = $this->connect()->prepare('INSERT INTO users (firstName, lastName, username, email, password) VALUES (?, ?, ?, ?, ?)');
+        $stmt = $this->connect()->prepare('INSERT INTO users (username, email, password) VALUES (?, ?, ?);');
 
         $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
 
-        if (!$stmt->execute([$fname, $lname, $uid, $email, $hashedPwd]))
+        if (!$stmt->execute([$uid, $email, $hashedPwd]))
         {
             $stmt = null;
             header("location: ../login?error=stmtfailed");
@@ -41,5 +41,28 @@ class Signup extends Dbh
         }
 
         return $resultCheck;
+    }
+
+    protected function getID($uid)
+    {
+        $stmt = $this->connect()->prepare('SELECT id FROM users WHERE username = ?;');
+
+        if (!$stmt->execute([$uid]))
+        {
+            $stmt = null;
+            header("location: ../profile?error=stmtfailed");
+            exit();
+        }
+
+        if ($stmt->rowCount() == 0)
+        {
+            $stmt = null;
+            header("location: ../profile?error=ProfileNotFound");
+            exit();
+        }
+
+        $profileData = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $profileData;
     }
 }
