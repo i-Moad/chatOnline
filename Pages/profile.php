@@ -11,6 +11,14 @@
     include "../classes/profileinfo-view.classes.php";
 
     $profileInfo = new ProfileInfoView();
+
+    $imagePath = "../assets/uploads/Profile".$_SESSION['id']."*";
+    $imageInfo = glob($imagePath);
+    if (!empty($imageInfo)) 
+    {
+        $imageExt = explode(".", $imageInfo[0]);
+        $imageActualExt = end($imageExt);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -43,7 +51,7 @@
                     <button type="submit" class="group transition ease-in-out duration-500 hover:text-black hover:bg-emerald-500 absolute right-[20px] top-[50%] translate-y-[-50%] bg-transparent text-white px-8 py-2 border border-white hover:border-emerald-500 rounded-md text-xl cursor-pointer"><pre>Save  <i class="fa-regular fa-floppy-disk text-white transition ease-in-out duration-500 group-hover:text-black"></i></pre></button>
                 </div>
                 <div class="rounded-full w-[150px] h-[150px] absolute top-[70px] left-[40px] outline-8 bg-[#1f1f1f] outline outline-[#1f1f1f]">
-                    <img id="profileImg" src="<?php echo ( $profileInfo->fetchProfileImgStatus($_SESSION['id']) == 0 ) ? 'assets/Profile.jpg' : 'assets/uploads/Profile'.$_SESSION['id'].'.png?'.mt_rand() ?>" alt="Profile" class=" rounded-full w-[150px] h-[150px] outline outline-[#1f1f1f]">
+                    <img id="profileImg" src="<?php echo ( $profileInfo->fetchProfileImgStatus($_SESSION['id']) == 0 ) ? 'assets/Profile.jpg' : 'assets/uploads/Profile'.$_SESSION['id'].'.'.$imageActualExt.'?'.mt_rand() ?>" alt="Profile" class=" rounded-full w-[150px] h-[150px] outline outline-[#1f1f1f]">
                 </div>
                 <div class=" absolute top-[180px] left-[150px]">
                     <input type="file" name="image" class=" hidden" id="fileUpload" accept="image/*">
@@ -106,7 +114,6 @@
                     <form action="includes/profileinfo.inc.php" method="post" class=" inline-block w-10">
                         <button type="submit" name="delete" class="group transition ease-in-out duration-500 hover:bg-red-500 bg-white w-10 h-10 rounded-full"><i class="fa-solid fa-trash transition ease-in-out duration-500 text-red-500 group-hover:text-white"></i></button>
                     </form>
-                   
                 </div>
                 `;
                 // Reattach the event listener to fileUpload

@@ -24,6 +24,8 @@ module.exports = {
       boxShadow: {
         'borderL': '1px -33px 0px 0px #1f1f1f',
         'borderR': '-0.5px -32px 0px 0px #1f1f1f',
+        'borderNR': '-1px -28px 0px 0px #1f1f1f',
+        'borderNL': '0px 32px 0px 0px #1f1f1f',
       }
     },
   },

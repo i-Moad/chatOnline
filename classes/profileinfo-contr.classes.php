@@ -48,7 +48,7 @@ class ProfileInfoContr extends ProfileInfo
         }
         if ($this->imageHandler($this->imageName, $this->imageError, $this->imageSize, $this->imageActualExt))
         {
-            $imageNameNew = "Profile" . $this->id . "." . "png" /*$this->imageActualExt*/;
+            $imageNameNew = "Profile" . $this->id . "." . $this->imageActualExt;
             $imageDestination = '../assets/uploads/' . $imageNameNew;
             move_uploaded_file($this->imageTmpName, $imageDestination);
 
@@ -126,7 +126,7 @@ class ProfileInfoContr extends ProfileInfo
         
         if (!unlink($image))
         {
-            header("location: ../profile?error=Can't delete Image");
+            header("location: ../profile?error=Can'tDeleteImage");
             exit();
         }
         else
