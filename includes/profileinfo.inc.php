@@ -20,9 +20,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
     $profileInfo = new ProfileInfoContr($id, $uid, $fname, $lname, $imageName, $imageTmpName, $imageError, $imageSize);
 
+    if (isset($_POST['delete']))
+    {
+        $profileInfo->deleteProfileImage();
+        header("location: ../profile?xx");
+        exit();
+    }
+
     $profileInfo->updatedProfileInfo($uid, $fname, $lname, $about);
 
     $_SESSION['uid'] = $uid;
 
-    header("location: ../home?error=none?".$imageName);
+    header("location: ../home");
 }

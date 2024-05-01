@@ -41,3 +41,7 @@ textarea {
 textarea::-webkit-scrollbar {
   display: none; /* For Chrome, Safari, and other Webkit-based browsers */
 }
+
+.inline {
+  display: inline;
+}

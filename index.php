@@ -71,7 +71,9 @@
                             <h1 class=" text-[50px] text-indigo-500 font-bold absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">Chat Online</h1>
                             <a href="profile" class="group transition ease-in-out duration-500 hover:text-black hover:bg-white absolute right-[20px] top-[50%] translate-y-[-50%] bg-transparent text-white px-8 py-2 border border-white rounded-md text-xl cursor-pointer"><pre>Edit  <i class="fa-regular fa-pen-to-square text-white transition ease-in-out duration-500 group-hover:text-black"></i></pre></a>
                         </div>
-                        <img id="profileImg" src="<?php echo ( $profileInfo->fetchProfileImgStatus($_SESSION['id']) == 0 ) ? 'assets/Profile.jpg' : 'assets/uploads/Profile'.$_SESSION['id'].'.png?'.mt_rand() ?>" alt="Profile" class=" rounded-full w-[150px] h-[150px] absolute top-[70px] left-[40px] outline-8 outline outline-[#1f1f1f]">
+                        <div class="rounded-full w-[150px] h-[150px] absolute top-[70px] left-[40px] outline-8 bg-[#1f1f1f] outline outline-[#1f1f1f]">
+                            <img id="profileImg" src="<?php echo ( $profileInfo->fetchProfileImgStatus($_SESSION['id']) == 0 ) ? 'assets/Profile.jpg' : 'assets/uploads/Profile'.$_SESSION['id'].'.png?'.mt_rand() ?>" alt="Profile" class=" rounded-full w-[150px] h-[150px]">
+                        </div>
                         <h5 class=" ml-[220px] mt-[12px] text-2xl text-slate-200"><b class="text-white">Username: </b> <?php echo $_SESSION['uid'] ?></h5>
                         <div class=" flex flex-row ">
                             <div class="p-6 shrink-0">

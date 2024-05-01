@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST')
     include "../classes/profileinfo.classes.php";
     include "../classes/profileinfo-contr.classes.php";
 
-    $profileInfo = new ProfileInfoContr($userID, $uid, $fname, $lname);
+    $profileInfo = new ProfileInfoContr($userID, $uid, $fname, $lname, '', '', '', '');
 
     $profileInfo->defaultProfileInfo();
 

@@ -61,6 +61,20 @@ class ProfileInfo extends Dbh
         $stmt = null;
     }
 
+    protected function deleteProfileImg($id)
+    {
+        $stmt = $this->connect()->prepare('UPDATE profiles SET status = ? WHERE id_u = ?;');
+
+        if (!$stmt->execute([0, $id]))
+        {
+            $stmt = null;
+            header("location: ../profile?error=stmt1failed");
+            exit();
+        }
+
+        $stmt = null;
+    }
+
     protected function setProfileInfo($id, $fname, $lname, $about)
     {
         $stmt = $this->connect()->prepare('INSERT INTO profiles (firstName, lastName, about, id_u) VALUES (?, ?, ?, ?);');

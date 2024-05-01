@@ -114,4 +114,25 @@ class ProfileInfoContr extends ProfileInfo
             return false;
         }
     }
+
+    public function deleteProfileImage()
+    {
+        $imagePath = "../assets/uploads/Profile".$this->id . "*";
+        $imageInfo = glob($imagePath);
+        $imageExt = explode(".", $imageInfo[0]);
+        $imageActualExt = $imageExt[3];
+
+        $image = "../assets/uploads/Profile" . $this->id . "." . $imageActualExt;
+        
+        if (!unlink($image))
+        {
+            header("location: ../profile?error=Can't delete Image");
+            exit();
+        }
+        else
+        {
+            $this->deleteProfileImg($this->id);
+        }
+
+    }
 }
