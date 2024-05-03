@@ -22,4 +22,9 @@ class ProfileInfoView extends ProfileInfo
         $profileInfo = $this->getProfileInfo($id);
         return $profileInfo['status'];
     }
+    public function fetchUsers($id, $recordsPerPage, $offset)
+    {
+        $users = $this->getUsersInfo($id, $recordsPerPage, $offset);
+        return $users;
+    }
 }

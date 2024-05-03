@@ -48,10 +48,10 @@ class ProfileInfoContr extends ProfileInfo
         }
         if ($this->imageHandler($this->imageName, $this->imageError, $this->imageSize, $this->imageActualExt))
         {
+            $this->deleteProfileImage();
             $imageNameNew = "Profile" . $this->id . "." . $this->imageActualExt;
             $imageDestination = '../assets/uploads/' . $imageNameNew;
             move_uploaded_file($this->imageTmpName, $imageDestination);
-
             $this->updateProfileImg($this->id);
         }
 

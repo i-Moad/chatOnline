@@ -9,6 +9,8 @@
     include "classes/dbh.classes.php";
     include "classes/profileinfo.classes.php";
     include "classes/profileinfo-view.classes.php";
+    include "classes/conversation.classes.php";
+    include "classes/conversation-view.classes.php";
 
     $profileInfo = new ProfileInfoView();
 
@@ -19,6 +21,10 @@
         $imageExt = explode(".", $imageInfo[0]);
         $imageActualExt = end($imageExt);
     }
+
+    $conv = new ConversationView();
+
+    $conversations = $conv->getUserConversation($_SESSION['id']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,20 +65,22 @@
                 <div class=" flex flex-row justify-between p-3">
                     <button onclick="menu()" class="rounded-full w-[40px] h-[40px] bg-[#1f1f1f]">
                         <div id="showMenu" class=" relative">
-                            <img id="profileImg" src="<?php echo ( $profileInfo->fetchProfileImgStatus($_SESSION['id']) == 0 ) ? 'assets/Profile.jpg' : 'assets/uploads/Profile'.$_SESSION['id'].'.'.$imageActualExt.'?'.mt_rand() ?>" alt="Profile" class=" rounded-full relative z-[10] w-[40px] h-[40px] outline-[1px] outline-[#1f1f1f] outline">
-                            <div class=" z-[-10] h-[35px] w-[160px] bg-[#1f1f1f] absolute top-[50%] left-0 translate-y-[-50%] rounded-full after:content-[''] after:bg-transparent after:block after:w-[15px] after:h-[35px] after:absolute after:top-[-35px] after:left-[26px] after:rounded-l-[7px] after:shadow-borderNL before:content-[''] before:bg-transparent before:block before:w-[15px] before:h-[30px] before:absolute before:top-[35px] before:left-[25px] before:rounded-l-lg before:shadow-borderNR">
+                            <div class=" rounded-full relative z-[10] w-[40px] h-[40px] outline-[1px] outline-[#1f1f1f] outline">
+                                <img id="profileImg" src="<?php echo ( $profileInfo->fetchProfileImgStatus($_SESSION['id']) == 0 ) ? 'assets/Profile.jpg' : 'assets/uploads/Profile'.$_SESSION['id'].'.'.$imageActualExt.'?'.mt_rand() ?>" alt="Profile" class=" rounded-full relative z-[10] w-[40px] h-[40px] outline-[1px] outline-[#1f1f1f] outline">
+                            </div>
+                            <div class=" z-[-10] h-[35px] w-[160px] bg-[#1f1f1f] absolute top-[50%] left-0 translate-y-[-50%] rounded-full after:content-[''] after:bg-transparent after:block after:w-[15px] after:h-[35px] after:absolute after:top-[-34.7px] after:left-[26px] after:rounded-l-[7px] after:shadow-borderNL before:content-[''] before:bg-transparent before:block before:w-[15px] before:h-[30px] before:absolute before:top-[35px] before:left-[25px] before:rounded-l-lg before:shadow-borderNR">
                                 <h1 class=" text-white text-[10px] font-semibold absolute top-[50%] translate-y-[-50%] left-[60%] translate-x-[-60%] ">
                                     <?php echo $_SESSION['uid'] ?>
                                 </h1>
                             </div>
                         </div>
                     </button>
-                    <button class="transition ease-in-out duration-500 rounded-full w-[40px] h-[40px] bg-white text-[#1f1f1f] hover:text-white hover:bg-[#1f1f1f] flex justify-center items-center">
+                    <a href="search" class="transition ease-in-out duration-500 rounded-full w-[40px] h-[40px] bg-white text-[#1f1f1f] hover:text-white hover:bg-[#1f1f1f] flex justify-center items-center">
                         <i class="fa-solid fa-user-plus"></i>
-                    </button>
+                    </a>
                 </div>
                 <div class=" flex justify-center items-center">
-                    <input type="search" placeholder="Search" name="search" id="search" class=" w-[95%] h-[40px] mx-auto rounded-full p-2 outline-none">
+                    <input type="search" placeholder="Search" name="search" id="search" autocomplete="off" class=" w-[95%] h-[40px] mx-auto rounded-full p-2 outline-none">
                 </div>
             </div>
         
@@ -80,15 +88,24 @@
             <div class="flex-grow p-4 overflow-y-auto" style="height: 75vh;">
                 <!-- Conversation Exemple -->
                 <div class="flex flex-col mb-4">
-        
-                    <div class=" h-[60px] w-full border-b border-gray-200 grid grid-cols-4 grid-rows-1">
-                        <div class=" col-start-1 col-end-2 flex justify-center items-center">
-                            <img id="profileImg" src="<?php echo ( $profileInfo->fetchProfileImgStatus($_SESSION['id']) == 0 ) ? 'assets/Profile.jpg' : 'assets/uploads/Profile'.$_SESSION['id'].'.'.$imageActualExt.'?'.mt_rand() ?>" alt="Profile" class=" rounded-full w-[50px] h-[50px] outline-[1px] outline-gray-50 outline">
+
+                <?php foreach ($conversations as $conversation) { 
+                    $imagePath1 = "./assets/uploads/Profile".$conversation['withUser']."*";
+                    $imageInfo1 = glob($imagePath1);
+                    if (!empty($imageInfo1)) 
+                    {
+                        $imageExt1 = explode(".", $imageInfo1[0]);
+                        $imageActualExt1 = end($imageExt1);
+                    }    
+                ?>
+                    <a href="?c=<?php echo $conversation['id_c']; ?>" class=" h-[60px] w-full border-b border-gray-200 grid grid-cols-4 grid-rows-1 cursor-pointer">
+                        <div class=" col-start-1 col-end-2 h-full flex justify-center items-center">
+                            <img id="profileImg" src="<?php echo ( $profileInfo->fetchProfileImgStatus($conversation['withUser']) == 0 ) ? 'assets/Profile.jpg' : 'assets/uploads/Profile'.$conversation['withUser'].'.'.$imageActualExt1.'?'.mt_rand() ?>" alt="Profile" class=" rounded-full w-[50px] h-[50px] outline-[1px] outline-gray-50 outline">
                         </div>
                         <div class=" col-start-2 col-end-5 grid grid-rows-2 grid-cols-1">
                             <div class=" grid grid-cols-4 grid-rows-1">
                                 <div class=" col-start-1 col-end-4 flex justify-start items-center font-semibold text-[20px]">
-                                    <h1>UserName</h1>
+                                    <h1><?php echo $conversation['username'] ?></h1>
                                 </div>
                                 <div class=" flex justify-start items-center px-4 text-gray-400 col-start-4 col-end-5">
                                     <p>21:00</p>
@@ -98,38 +115,34 @@
                                 ~ <p>This is a new mssage!</p>
                             </div>
                         </div>
-                    </div>
-                    <div class=" h-[60px] w-full border-b border-gray-200 grid grid-cols-4 grid-rows-1">
-                        <div class=" col-start-1 col-end-2 flex justify-center items-center">
-                            <img id="profileImg" src="<?php echo ( $profileInfo->fetchProfileImgStatus($_SESSION['id']) == 0 ) ? 'assets/Profile.jpg' : 'assets/uploads/Profile'.$_SESSION['id'].'.'.$imageActualExt.'?'.mt_rand() ?>" alt="Profile" class=" rounded-full w-[50px] h-[50px] outline-[1px] outline-gray-50 outline">
-                        </div>
-                        <div class=" col-start-2 col-end-5 grid grid-rows-2 grid-cols-1">
-                            <div class=" grid grid-cols-4 grid-rows-1">
-                                <div class=" col-start-1 col-end-4 flex justify-start items-center font-semibold text-[20px]">
-                                    <h1>UserName</h1>
-                                </div>
-                                <div class=" flex justify-start items-center px-4 text-gray-400 col-start-4 col-end-5">
-                                    <p>21:00</p>
-                                </div>
-                            </div>
-                            <div class=" flex justify-start items-center text-gray-400">
-                                ~ <p>This is a new mssage!</p>
-                            </div>
-                        </div>
-                    </div>
+                    </a>
+                <?php 
+                    } 
+                ?>
                     
                 </div>
             </div>
         </div>
         <!-- Right Side -->
-        <div class=" col-start-4 col-end-13 flex flex-col bg-white shadow-md overflow-hidden">
+    <?php if (isset($_GET['c'])) { ?>
+        <?php
+                $info = $conv->getSecondUserInformation($_SESSION['id'], $_GET['c']); // get the selected user information from the conversation
+                $imagePath2 = "./assets/uploads/Profile".$info['withUser']."*";
+                $imageInfo2 = glob($imagePath2);
+                if (!empty($imageInfo2)) 
+                {
+                    $imageExt2 = explode(".", $imageInfo2[0]);
+                    $imageActualExt2 = end($imageExt2);
+                }
+        ?>
+            <div class=" col-start-4 col-end-13 flex flex-col bg-white shadow-md overflow-hidden">
             <!-- Sticky Header -->
             <div class="bg-indigo-500 h-16 flex items-center justify-between p-4 cursor-default">
                 <div class=" cursor-pointer flex items-center">
-                    <img id="profileImg" src="<?php echo ( $profileInfo->fetchProfileImgStatus($_SESSION['id']) == 0 ) ? 'assets/Profile.jpg' : 'assets/uploads/Profile'.$_SESSION['id'].'.'.$imageActualExt.'?'.mt_rand() ?>" alt="Profile" class=" rounded-full w-[50px] h-[50px]">
-                    <h1 class=" text-white ml-2 font-semibold text-xl"><?php echo $_SESSION['uid'] ?></h1>
+                    <img id="profileImg" src="<?php echo ( $profileInfo->fetchProfileImgStatus($info['withUser']) == 0 ) ? 'assets/Profile.jpg' : 'assets/uploads/Profile'.$info['withUser'].'.'.$imageActualExt2.'?'.mt_rand() ?>" alt="Profile" class=" rounded-full w-[50px] h-[50px]">
+                    <h1 class=" text-white ml-2 font-semibold text-xl"><?php echo $info['username'] ?></h1>
                 </div>
-                <button type="submit" name="delete" class="group transition ease-in-out duration-500 hover:bg-red-500 w-10 h-10 rounded-full"><i class="fa-solid fa-trash transition ease-in-out duration-500 text-white group-hover:text-white"></i></button>
+                <a  href="includes/deleteconversation.inc.php?c=<?php echo $_GET['c'] ?>" class="group transition ease-in-out duration-500 hover:bg-red-500 w-10 h-10 rounded-full flex justify-center items-center cursor-pointer"><i class="fa-solid fa-trash transition ease-in-out duration-500 text-white group-hover:text-white"></i></a>
             </div>
 
             <!-- Message Area -->
@@ -179,21 +192,37 @@
             <form>
                 <div class="flex items-center p-4 bg-white border-t border-gray-300">
                     <input
+                        type="text"
+                        autocomplete="off"
                         placeholder="Type a message..."
                         class="flex-grow bg-gray-100 p-2 rounded-lg outline-none"
                         name="content"
                         id="content"
                     />
-                    <button type="button" class="ml-4 bg-indigo-500 text-white p-2 rounded-lg hover:bg-indigo-600" onclick="addMessage(content.value)">
+                    <button type="button" class="transition ease-in-out duration-500 ml-4 bg-indigo-500 text-white p-2 rounded-lg hover:bg-indigo-600" onclick="addMessage(content.value)">
                         Send
                     </button>
                 </div>
             </form>
+            </div>
+    <?php
+        } 
+        else
+        {
+    ?>
+        <div class=" col-start-4 col-end-13 flex flex-col justify-center items-center bg-white shadow-md overflow-hidden">
+            <h1 class=" text-4xl">Welcome To</h1>
+            <h1 class=" text-4xl text-indigo-500 font-bold mt-3 mb-3">Chat Online</h1>
+            <a href="search" class=" text-xl text-white bg-indigo-500 w-fit rounded-lg p-2 font-bold mt-3">Start New Conversation</a>
         </div>
+    <?php 
+        }
+    ?>
     </div>
 
     <script>
-        function addMessage(content) {
+        function addMessage(content) 
+        {
         var chatMessages = document.getElementById('chat-messages');
 
         // Create a new message element
@@ -210,8 +239,8 @@
         chatMessages.appendChild(newMessage);
 
         // Scroll to the bottom after adding the message
-    scrollToBottom();
-}
+        scrollToBottom();
+        }
     </script>
 
     <?php
@@ -219,7 +248,6 @@
         {
     ?>
             <script>
-                document.querySelector('.changeToBlur').classList.add('blur-md');
                 document.querySelector('.body').innerHTML += `
                     <div class="popup w-[100%] h-[100%] bg-gray-700 opacity-[0.95] absolute">
                         <div class=" w-[100%] h-[100%] relative">
@@ -234,7 +262,6 @@
                 function popUp()
                 {
                     document.querySelector('.popup').remove()
-                    document.querySelector('.changeToBlur').classList.remove('blur-md')
                 }
             </script>
     <?php

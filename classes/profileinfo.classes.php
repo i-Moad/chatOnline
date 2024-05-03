@@ -25,6 +25,28 @@ class ProfileInfo extends Dbh
         return $profileData;
     }
 
+    protected function getUsersInfo($id, $recordsPerPage, $offset)
+    {
+        $stmt = $this->connect()->prepare('SELECT id, username, profiles.status, profiles.about FROM users JOIN profiles ON users.id = profiles.id_u WHERE users.id <> :id LIMIT :limit OFFSET :offset');
+
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':limit', $recordsPerPage, PDO::PARAM_INT);
+        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        if ($stmt->rowCount() == 0)
+        {
+            $stmt = null;
+            header("location: search");
+            exit();
+        }
+
+        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $users;
+    }
+
     protected function updateProfileInfo($uid, $fname, $lname, $about, $id)
     {
         $stmt1 = $this->connect()->prepare('UPDATE profiles SET firstName = ?, lastName = ?, about = ? WHERE id_u = ?;');
