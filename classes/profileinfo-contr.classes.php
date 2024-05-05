@@ -126,8 +126,7 @@ class ProfileInfoContr extends ProfileInfo
         
         if (!unlink($image))
         {
-            header("location: ../profile?error=Can'tDeleteImage");
-            exit();
+            return false;
         }
         else
         {

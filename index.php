@@ -25,6 +25,8 @@
     $conv = new ConversationView();
 
     $conversations = $conv->getUserConversation($_SESSION['id']);
+
+    $allConversationId = [];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,6 +36,7 @@
     <title>Chat Online</title>
     <link rel="stylesheet" href="styles/output.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <style>
         ::-webkit-scrollbar {
             width: 5px;
@@ -47,17 +50,10 @@
             background-color: rgb(165 180 252 / var(--tw-bg-opacity));
         }
     </style>
-    <script>
-        function scrollToBottom() {
-            var chatMessages = document.getElementById('chat-messages');
-            chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to the bottom
-        }
-
-        window.addEventListener('load', scrollToBottom); // Scroll on page load
-    </script>
 </head>
 <body class="body flex justify-center overflow-y-hidden items-center h-screen bg-white">
     <div class="changeToBlur w-[100%] mx-auto h-[100%] grid grid-cols-12 relative">
+
         <!-- Left Side -->
         <div class=" col-start-1 col-end-4 flex flex-col bg-white border-r border-gray-300 shadow-md overflow-hidden">
             <!-- Sticky Header -->
@@ -89,14 +85,18 @@
                 <!-- Conversation Exemple -->
                 <div class="flex flex-col mb-4">
 
-                <?php foreach ($conversations as $conversation) { 
+                <?php foreach ($conversations as $conversation) {
+                    array_push($allConversationId, $conversation['id_c']);
+
+                    $latestMsg = $conv->getConversationData($conversation['id_c']);
+
                     $imagePath1 = "./assets/uploads/Profile".$conversation['withUser']."*";
                     $imageInfo1 = glob($imagePath1);
                     if (!empty($imageInfo1)) 
                     {
                         $imageExt1 = explode(".", $imageInfo1[0]);
                         $imageActualExt1 = end($imageExt1);
-                    }    
+                    }
                 ?>
                     <a href="?c=<?php echo $conversation['id_c']; ?>" class=" h-[60px] w-full border-b border-gray-200 grid grid-cols-4 grid-rows-1 cursor-pointer">
                         <div class=" col-start-1 col-end-2 h-full flex justify-center items-center">
@@ -107,12 +107,12 @@
                                 <div class=" col-start-1 col-end-4 flex justify-start items-center font-semibold text-[20px]">
                                     <h1><?php echo $conversation['username'] ?></h1>
                                 </div>
-                                <div class=" flex justify-start items-center px-4 text-gray-400 col-start-4 col-end-5">
-                                    <p>21:00</p>
+                                <div class="w-full overflow-x-hidden flex justify-start items-center px-4 text-gray-400 col-start-4 col-end-5">
+                                    <p class=" overflow-ellipsis"><?php echo $latestMsg['time']; ?></p>
                                 </div>
                             </div>
                             <div class=" flex justify-start items-center text-gray-400">
-                                ~ <p>This is a new mssage!</p>
+                                <pre>~ <?php echo $latestMsg['message']; ?></pre>
                             </div>
                         </div>
                     </a>
@@ -123,8 +123,9 @@
                 </div>
             </div>
         </div>
+
         <!-- Right Side -->
-    <?php if (isset($_GET['c'])) { ?>
+    <?php if (isset($_GET['c']) && in_array($_GET['c'], $allConversationId)) { ?>
         <?php
                 $info = $conv->getSecondUserInformation($_SESSION['id'], $_GET['c']); // get the selected user information from the conversation
                 $imagePath2 = "./assets/uploads/Profile".$info['withUser']."*";
@@ -137,73 +138,38 @@
         ?>
             <div class=" col-start-4 col-end-13 flex flex-col bg-white shadow-md overflow-hidden">
             <!-- Sticky Header -->
-            <div class="bg-indigo-500 h-16 flex items-center justify-between p-4 cursor-default">
-                <div class=" cursor-pointer flex items-center">
-                    <img id="profileImg" src="<?php echo ( $profileInfo->fetchProfileImgStatus($info['withUser']) == 0 ) ? 'assets/Profile.jpg' : 'assets/uploads/Profile'.$info['withUser'].'.'.$imageActualExt2.'?'.mt_rand() ?>" alt="Profile" class=" rounded-full w-[50px] h-[50px]">
-                    <h1 class=" text-white ml-2 font-semibold text-xl"><?php echo $info['username'] ?></h1>
+                <div class="bg-indigo-500 h-16 flex items-center justify-between p-4 cursor-default">
+                    <div class=" cursor-pointer flex items-center">
+                        <img id="profileImg" src="<?php echo ( $profileInfo->fetchProfileImgStatus($info['withUser']) == 0 ) ? 'assets/Profile.jpg' : 'assets/uploads/Profile'.$info['withUser'].'.'.$imageActualExt2.'?'.mt_rand() ?>" alt="Profile" class=" rounded-full w-[50px] h-[50px]">
+                        <h1 class=" text-white ml-2 font-semibold text-xl"><?php echo $info['username'] ?></h1>
+                    </div>
+                    <a  href="includes/deleteconversation.inc.php?c=<?php echo $_GET['c'] ?>" class="group transition ease-in-out duration-500 hover:bg-red-500 w-10 h-10 rounded-full flex justify-center items-center cursor-pointer"><i class="fa-solid fa-trash transition ease-in-out duration-500 text-white group-hover:text-white"></i></a>
                 </div>
-                <a  href="includes/deleteconversation.inc.php?c=<?php echo $_GET['c'] ?>" class="group transition ease-in-out duration-500 hover:bg-red-500 w-10 h-10 rounded-full flex justify-center items-center cursor-pointer"><i class="fa-solid fa-trash transition ease-in-out duration-500 text-white group-hover:text-white"></i></a>
-            </div>
 
-            <!-- Message Area -->
-            <div class="flex-grow p-4 overflow-y-auto" style="height: 75vh;" id="chat-messages">
-                <!-- Example Chat Messages -->
-                <div class="flex flex-col mb-4">
+                <!-- Message Area -->
+                <div class="flex-grow p-4 overflow-y-auto" style="height: 75vh;" id="chat-messages">
+                    <!-- Example Chat Messages -->
+                    <div id="chatBox" class="flex flex-col mb-4">
 
-                    <div class="flex mb-4">
-                        <div class="flex flex-col items-start bg-indigo-500 text-white p-3 rounded-lg max-w-xs">
-                            <span>Hello! How can I help you today?</span>
-                            <span class="text-xs text-gray-200 mt-1">21:00</span>
-                        </div>
+                        
                     </div>
-
-                    <div class="flex justify-end mb-4">
-                        <div class="flex flex-col items-start bg-gray-200 text-black p-3 rounded-lg max-w-xs">
-                            <span>Hi! I have a question about my order. Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo minima harum aliquid porro aatione porro ea quis optio nihil quas obcaecati. Magni nostrum pariatur qui nobis provident, optio sapiente accusantium alias laboriosam inventore molestias aperiam aut. Magni quas voluptas perferendis voluptatum rerum, maxime laudantium quidem autem cumque obcaecati laborum sit aliquam unde esse soluta neque. Nihil debitis voluptas rem dolor?</span>
-                            <span class="text-xs text-gray-500 mt-1">21:00</span>
-                        </div>
-                    </div>
-
-                    <div class="flex justify-end mb-4">
-                        <div class="flex flex-col items-start bg-gray-200 text-black p-3 rounded-lg max-w-xs">
-                            <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet porro debitis id similique, molestiae incidunt iste dignissimos eum maxime pariatur.</span>
-                            <span class="text-xs text-gray-500 mt-1">21:00</span>
-                        </div>
-                    </div>
-
-                    <div class="flex mb-4">
-                        <div class="flex flex-col items-start bg-indigo-500 text-white p-3 rounded-lg max-w-xs">
-                            <span>Hello! How can I help you today?</span>
-                            <span class="text-xs text-gray-200 mt-1">21:00</span>
-                        </div>
-                    </div>
-
-                    <div class="flex justify-end mb-4">
-                        <div class="flex flex-col items-start bg-gray-200 text-black p-3 rounded-lg max-w-xs">
-                            <span>Hi! I have a question about my order. Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo minima harum aliquid porro aatione porro ea quis optio nihil quas obcaecati. Magni nostrum pariatur qui nobis provident, optio sapiente accusantium alias laboriosam inventore molestias aperiam aut. Magni quas voluptas perferendis voluptatum rerum, maxime laudantium quidem autem cumque obcaecati laborum sit aliquam unde esse soluta neque. Nihil debitis voluptas rem dolor?</span>
-                            <span class="text-xs text-gray-500 mt-1">21:00</span>
-                        </div>
-                    </div>
-                    
                 </div>
-            </div>
 
-            <!-- Input Area -->
-            <form>
-                <div class="flex items-center p-4 bg-white border-t border-gray-300">
-                    <input
-                        type="text"
-                        autocomplete="off"
-                        placeholder="Type a message..."
-                        class="flex-grow bg-gray-100 p-2 rounded-lg outline-none"
-                        name="content"
-                        id="content"
-                    />
-                    <button type="button" class="transition ease-in-out duration-500 ml-4 bg-indigo-500 text-white p-2 rounded-lg hover:bg-indigo-600" onclick="addMessage(content.value)">
-                        Send
-                    </button>
-                </div>
-            </form>
+                <!-- Input Area -->
+                <form>
+                    <div class="flex items-center p-4 bg-white border-t border-gray-300">
+                        <input
+                            type="text"
+                            autocomplete="off"
+                            placeholder="Type a message..."
+                            class="flex-grow bg-gray-100 p-2 rounded-lg outline-none"
+                            id="message"
+                        />
+                        <button type="button" id="sendMsg" class="transition ease-in-out duration-500 ml-4 bg-indigo-500 text-white p-2 rounded-lg hover:bg-indigo-600">
+                            Send
+                        </button>
+                    </div>
+                </form>
             </div>
     <?php
         } 
@@ -221,26 +187,84 @@
     </div>
 
     <script>
-        function addMessage(content) 
-        {
-        var chatMessages = document.getElementById('chat-messages');
+        $(document).ready(function() {
 
-        // Create a new message element
-        var newMessage = document.createElement('div');
-        newMessage.className = 'flex justify-end mt-4';
-        newMessage.innerHTML = `
-            <div class="bg-gray-200 text-black p-3 rounded-lg max-w-xs">
-                <span>${content}</span>
-            </div>
-        `;
-        document.getElementById('content').value = '';
+            function scrollToBottom() {
+                var chatMessages = document.getElementById('chat-messages');
+                chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to the bottom
+            }
 
-        // Append the new message to the chat container
-        chatMessages.appendChild(newMessage);
+            window.addEventListener('load', scrollToBottom); // Scroll on page load
+            
 
-        // Scroll to the bottom after adding the message
-        scrollToBottom();
-        }
+            function sendData() {
+                // Get the value from the input field
+                const msg = $('#message').val().trim();
+                const id = "<?php echo addslashes($_SESSION['id']); ?>";
+                const id_c = "<?php echo addslashes($_GET['c']); ?>";
+                
+                if (msg === '') {
+                    return; // Exit the function to prevent sending the AJAX request
+                }
+
+                // Make an AJAX request to the PHP file
+                $.ajax({
+                    type: 'POST', // Use POST to send data
+                    url: 'includes/message.inc.php', // The PHP file that will handle the request
+                    data: { 
+                        msg: msg ,
+                        id: id,
+                        id_c: id_c
+                    }, // Data to send
+                    success: function() {
+                        $('#message').val('');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', error);
+                        $('#response').text('An error occurred');
+                    }
+                });
+            };
+
+            function fetchNewMessages() 
+            {
+                const id = "<?php echo addslashes($_SESSION['id']); ?>";
+                const id_c = "<?php echo addslashes($_GET['c']); ?>";
+
+                if (id_c === '') {
+                    return; // Exit the function to prevent sending the AJAX request
+                }
+
+                $('#chatBox').load('includes/messageload.inc.php', {
+                    id: id,
+                    id_c: id_c
+                })
+            }
+
+            // Event listener for the submit button click
+            $('#sendMsg').click(function() {
+                sendData(); // Call the function to send data
+                fetchNewMessages();
+
+                scrollToBottom();
+            });
+            
+            // Event listener for the Enter key press
+            $('#message').keydown(function(event) {
+                if (event.key === 'Enter') { // Check if the pressed key is Enter
+                    event.preventDefault(); // Prevent default form submission
+                    sendData(); // Call the function to send data
+                    fetchNewMessages();
+
+                    scrollToBottom();
+                }
+            });
+
+            setInterval(fetchNewMessages, 1000); // Adjust the interval as needed (1s)
+
+            fetchNewMessages(); 
+
+        });
     </script>
 
     <?php

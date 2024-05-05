@@ -13,4 +13,10 @@ class ConversationView extends Conversation
         $info = $this->getSecondUserInfo($currentUserId, $conversationId);
         return $info;
     }
+
+    public function getConversationData($conversationId)
+    {
+        $LatestMsg = $this->getConversationLatestMessage($conversationId);
+        return $LatestMsg;
+    }
 }

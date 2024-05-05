@@ -114,6 +114,23 @@ class Conversation extends Dbh
         return $conversations;
     }
 
+    protected function getConversationLatestMessage($conversationId)
+    {
+        $stmt = $this->connect()->prepare('SELECT message, TIME_FORMAT(msgTime, "%H:%i") AS time FROM messages WHERE id_c = ? ORDER BY msgTime DESC LIMIT 1');
+
+        if (!$stmt->execute([$conversationId]))
+        {
+            $stmt = null;
+            header("location: ../home?error=getLatestMsgfailed");
+            exit();
+        }
+
+        $LatestMsg = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $stmt = null;
+        return $LatestMsg;
+    }
+
     protected function getSecondUserInfo($theCurrentId ,$theGeneratedId)
     {
         $stmt = $this->connect()->prepare('SELECT withUser, users.username FROM usersconversations JOIN users ON users.id = usersconversations.withUser WHERE id_u = ? and id_c = ?');
@@ -148,6 +165,13 @@ class Conversation extends Dbh
             $stmt = $this->connect()->prepare('DELETE FROM usersconversations WHERE id_u = ? AND id_c = ?');
 
             if (!$stmt->execute([$currentId, $conversationId]))
+            {
+                $stmt = null;
+            }
+
+            $stmt = $this->connect()->prepare('DELETE FROM messages WHERE id_c = ?');
+
+            if (!$stmt->execute([$conversationId]))
             {
                 $stmt = null;
             }
