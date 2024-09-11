@@ -1,7 +1,3 @@
-Here’s a simple `README.md` template for your ChatOnline website:
-
----
-
 # ChatOnline
 
 ChatOnline is a simple chat web application that allows users to communicate with each other through existing accounts. The platform focuses on private one-on-one conversations, with no group chat or calling functionality.
