@@ -5,7 +5,6 @@ ChatOnline is a simple chat web application that allows users to communicate wit
 ## Features
 - **One-on-One Chat**: Users can only chat with existing accounts.
 - **Account-Based Communication**: No group chats or calls, just simple, private messaging.
-- **Responsive Design**: Works seamlessly on both desktop and mobile devices.
 
 ## License
 This project is licensed under the [Apache License 2.0](https://github.com/i-Moad/chatOnline/blob/master/LICENSE.txt).
