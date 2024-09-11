@@ -8,7 +8,3 @@ ChatOnline is a simple chat web application that allows users to communicate wit
 
 ## License
 This project is licensed under the [Apache License 2.0](https://github.com/i-Moad/chatOnline/blob/master/LICENSE.txt).
-
----
-
-Feel free to modify it according to your specific details!
